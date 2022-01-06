@@ -1,6 +1,6 @@
 {
   "name": "@entityjs/entityjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "entity framework for pure javascript",
   "type": "module",
   "main": "./src/index.js",
