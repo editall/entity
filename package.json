@@ -12,7 +12,7 @@
     "samples",
     "src",
     "dist"
-  ], 
+  ],
   "exports": {
     ".": {
       "import": "./src/index.js",
@@ -23,7 +23,8 @@
     "dev": "vite",
     "build": "vite build --config vite.dist.config.js",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
