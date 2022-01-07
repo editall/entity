@@ -6,7 +6,7 @@ test('util - mapValue', () => {
     expect(mapValue({ a: 1, b: 2 }, v => v + 1)).toEqual({ a: 2, b: 3 })
 })
 
-test('util - eventValue', () => {
+test('util - everyValue', () => {
     expect(everyValue({ a: 1, b: 2 }, v => v >= 1)).toEqual(true)
 })
 
