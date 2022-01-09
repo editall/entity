@@ -92,9 +92,9 @@ const member = (new Member).parse({
 
 ## addtional content
 Blog Post(Korean)
-<a href="https://www.bsidesoft.com/8621" target="_blank">entityJS 1</a>
-<a href="https://www.bsidesoft.com/8624" target="_blank">entityJS 2</a>
-<a href="https://www.bsidesoft.com/8634" target="_blank">entityJS 3</a>
+* <a href="https://www.bsidesoft.com/8621" target="_blank">entityJS 1</a>
+* <a href="https://www.bsidesoft.com/8624" target="_blank">entityJS 2</a>
+* <a href="https://www.bsidesoft.com/8634" target="_blank">entityJS 3</a>
 
 ## license
 MIT
