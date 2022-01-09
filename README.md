@@ -91,6 +91,8 @@ const member = (new Member).parse({
 ```
 
 ## addtional content
+* NPM <a href="https://www.npmjs.com/package/@entityjs/entityjs" target="_blank">https://www.npmjs.com/package/@entityjs/entityjs</a>
+
 Blog Post(Korean)
 * <a href="https://www.bsidesoft.com/8621" target="_blank">entityJS 1</a>
 * <a href="https://www.bsidesoft.com/8624" target="_blank">entityJS 2</a>
