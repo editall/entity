@@ -1,8 +1,8 @@
 # entityJS
 entityJS is data modeling framework for JSON.
 
-# 
-1. simple sample
+# usage
+##1. simple sample
 
 JSON
 ```json
@@ -44,7 +44,7 @@ console.log(member.name); //hika
 console.log(member.age); //18
 ```
 
-2. array and object
+## 2. array and object
 using List, Map series Function
 ```js
 class Remember extends Entity{
@@ -61,7 +61,7 @@ const remember = (new Remember).parse({
 });
 ```
 
-3. composited strcuture
+## 3. composited strcuture
 using entity, entityList, entityMap
 ```js
 class Partner extends Entity{
