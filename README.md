@@ -2,7 +2,7 @@
 entityJS is data modeling framework for JSON.
 
 # usage
-##1. simple sample
+## 1. simple sample
 
 JSON
 ```json
