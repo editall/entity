@@ -1,6 +1,7 @@
 # entityJS
 entityJS is data modeling framework for JSON.
 
+# 
 1. simple sample
 
 JSON
@@ -24,7 +25,7 @@ class Member extends Entity{
 ```
 
 Use
-```
+```js
 const member = new Member();
 member.parse({
   "name":"hika",
@@ -86,3 +87,6 @@ const member = (new Member).parse({
     ]
 });
 ```
+
+# license
+MIT
