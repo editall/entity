@@ -59,7 +59,7 @@ class Remember extends Entity{
 
 const remember = (new Remember).parse({
   "friends":["hika", "easy"],
-  "lotto":[1,2,3,4,5,6]
+  "lotto":{"num1":1, "num2":2, "num3":3, "num4":4, "num5":5, "num6":6}
 });
 ```
 
