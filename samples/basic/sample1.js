@@ -37,7 +37,7 @@ const normalMember = Member.parse({
 
 const sourceCode = `
 class Member extends Entity{
-    #name = stringValue(this, "name").validation(v=>2<v.length && v.length<=10);
+    #name = stringValue(this, "name").validation(v => 2 < v.length && v.length<=10);
     #point = numberValue(this, "point").default(0);
 }
 class VIP extends Member{
