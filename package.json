@@ -1,0 +1,58 @@
+{
+  "name": "@entityjs/entityjs",
+  "version": "0.0.4",
+  "description": "entity framework for pure javascript",
+  "type": "module",
+  "main": "./src/index.js",
+  "module": "./dist/entityjs.es.js",
+  "directories": {
+    ".": "./src"
+  },
+  "files": [
+    "samples",
+    "src",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "require": "./dist/entityjs.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --config vite.dist.config.js",
+    "preview": "vite preview",
+    "test": "vitest",
+    "release": "release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/entityjs/entityJS.git"
+  },
+  "keywords": [
+    "entity",
+    "framework",
+    "orm"
+  ],
+  "author": "entityjs",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "hikaMaeng"
+    },
+    {
+      "name": "easylogic",
+      "email": "cyberuls@gmail.com"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/entityjs/entityJS/issues"
+  },
+  "homepage": "https://github.com/entityjs/entityJS#readme",
+  "devDependencies": {
+    "release-it": "^14.11.8",
+    "vite": "^2.7.10",
+    "vitest": "0.0.134"
+  }
+}
