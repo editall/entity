@@ -27,3 +27,4 @@ const member = (new Member).parse({
     ]
 })
 console.log(member);
+console.log(JSON.stringify(member));
