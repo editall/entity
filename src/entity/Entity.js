@@ -1,4 +1,5 @@
 import {setProp} from "../util/util.js";
+import {Field} from "../field/Field.js";
 
 class Entity{
     static union(base, ...sub){
@@ -31,6 +32,7 @@ class Entity{
     }
     toJSON(){return this._fields;}
     define(field, descriptor){
+        if(!(descriptor instanceof Field)) throw 'invalid descriptor(no Field type):' + descriptor
         Object.defineProperty(this, field, this._fields[field] = descriptor);
         return descriptor;
     }
