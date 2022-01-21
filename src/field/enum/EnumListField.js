@@ -7,6 +7,6 @@ class EnumListField extends Field{
     }
     typeValidation(v){return v.every(item=>this.enum.isValid(item));}
 }
-const enumList = (entity, key, targetEnum)=>entity.define(key, new EnumListField(targetEnum));
+const enumList = targetEnum=>new EnumListField(targetEnum);
 
 export {enumList};

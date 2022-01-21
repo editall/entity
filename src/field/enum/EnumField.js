@@ -8,6 +8,6 @@ class EnumField extends Field{
     typeValidation(v){return this.enum.isValid(v);}
 }
 
-const enumValue = (entity, key, targetEnum)=>entity.define(key, new EnumField(targetEnum));
+const enumValue = targetEnum=>new EnumField(targetEnum);
 
 export {enumValue};

@@ -1,13 +1,13 @@
 import {Entity, stringValue, numberValue, dateValue, entityList, enumValue, Enum} from "../../src/index.js";
 
 class Member extends Entity{
-    #name = stringValue(this, "name").validation(v=>2<v.length && v.length<=10);
-    #point = numberValue(this, "point").default(0);
+    name = stringValue().validation(v=>2<v.length && v.length<=10);
+    point = numberValue().default(0);
 }
 class VIP extends Member{
-    #freeParking = numberValue(this, "freeParking").validation(v=>v>=0);
-    #vipCoupons = entityList(this, "vipCoupons", Coupon);
-    #until = dateValue(this, "until");
+    freeParking = numberValue().validation(v=>v>=0);
+    vipCoupons = entityList(Coupon);
+    until = dateValue();
 }
 class Normal extends Member{}
 Entity.union(Member, VIP, Normal);
@@ -15,9 +15,9 @@ Entity.union(Member, VIP, Normal);
 const CouponType = new Enum("percent", "amount");
 
 class Coupon extends Entity{
-    #title = stringValue(this, "title");
-    #type = enumValue(this, "type", CouponType);
-    #value = numberValue(this, "value");
+    title = stringValue();
+    type = enumValue(CouponType);
+    value = numberValue();
 }
 
 const vipMember = Member.parse({
@@ -34,16 +34,15 @@ const normalMember = Member.parse({
     name:"easy",
     point:100
 });
-
 const sourceCode = `
 class Member extends Entity{
-    #name = stringValue(this, "name").validation(v=>2<v.length && v.length<=10);
-    #point = numberValue(this, "point").default(0);
+    name = stringValue().validation(v=>2<v.length && v.length<=10);
+    point = numberValue().default(0);
 }
 class VIP extends Member{
-    #freeParking = numberValue(this, "freeParking").validation(v=>v>=0);
-    #vipCoupons = entityList(this, "vipCoupons", Coupon);
-    #until = dateValue(this, "until");
+    freeParking = numberValue().validation(v=>v>=0);
+    vipCoupons = entityList(Coupon);
+    until = dateValue();
 }
 class Normal extends Member{}
 
@@ -54,9 +53,9 @@ Entity.union(Member, VIP, Normal);
 const CouponType = new Enum("percent", "amount");
 
 class Coupon extends Entity{
-    #title = stringValue(this, "title");
-    #type = enumValue(this, "type", CouponType);
-    #value = numberValue(this, "value");
+    title = stringValue();
+    type = enumValue(CouponType);
+    value = numberValue();
 }
 
 //parse union using parse method of union base class

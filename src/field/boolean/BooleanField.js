@@ -4,5 +4,5 @@ class BooleanField extends Field{
     typeValidation(v){ return typeof newValue != "boolean";}
 }
 
-const booleanValue = (entity, key)=>entity.define(key, new BooleanField);
+const booleanValue = _=>new BooleanField;
 export {booleanValue};

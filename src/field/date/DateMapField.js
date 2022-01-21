@@ -6,5 +6,5 @@ class DateMapField extends Field{
     toJSON(){return mapValue(this.v, v=>v.toISOString());}
     fromJSON(v){return mapValue(v, v=>new Date(v));}
 }
-const dateMap = (entity, key)=>entity.define(key, new DateMapField);
+const dateMap = _=>new DateMapField;
 export {dateMap};

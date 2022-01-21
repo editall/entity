@@ -4,5 +4,5 @@ import {isArray} from "../../util/util.js";
 class BooleanListField extends Field{
     typeValidation(v){ return isArray(v) && v.every(item=>typeof item == "boolean");}
 }
-const booleanList = (entity, key)=>entity.define(key, new BooleanListField);
+const booleanList = _=>new BooleanListField;
 export {booleanList};

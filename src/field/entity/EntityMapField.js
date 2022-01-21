@@ -10,6 +10,6 @@ class EntityMapField extends Field{
     fromJSON(v){return mapValue(v, json=>(new this.cls).parse(json));}
 }
 
-const entityMap = (entity, key, cls)=>entity.define(key, new EntityMapField(cls));
+const entityMap = cls=>new EntityMapField(cls);
 
 export {entityMap};

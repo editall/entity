@@ -6,6 +6,6 @@ class DateField extends Field{
     fromJSON(v){return new Date(v);}
 }
 
-const dateValue = (entity, key)=>entity.define(key, new DateField);
+const dateValue = _=>new DateField;
 
 export {dateValue};

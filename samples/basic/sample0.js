@@ -4,18 +4,12 @@ import {numberValue} from "../../src/field/number/NumberField.js";
 import {entityList} from "../../src/field/entity/EntityListField.js";
 
 class Partner extends Entity{
-    constructor() {
-        super();
-        stringValue(this, "name");
-    }
+    name = stringValue();
 }
 class Member extends Entity{
-    constructor() {
-        super();
-        stringValue(this, "name");
-        numberValue(this, "age");
-        entityList(this, "partners", Partner);
-    }
+    name = stringValue();
+    age = numberValue();
+    partners = entityList(Partner);
 }
 
 const member = (new Member).parse({
@@ -29,18 +23,12 @@ const member = (new Member).parse({
 
 const sourceCode = `
 class Partner extends Entity{
-    constructor() {
-        super();
-        stringValue(this, "name");
-    }
+    name = stringValue();
 }
 class Member extends Entity{
-    constructor() {
-        super();
-        stringValue(this, "name");
-        numberValue(this, "age");
-        entityList(this, "partners", Partner);
-    }
+    name = stringValue();
+    age = numberValue();
+    partners = entityList();
 }
 
 const member = (new Member).parse({

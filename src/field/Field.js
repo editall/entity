@@ -13,8 +13,14 @@ class Field{
         this.validator = validator;
         return this;
     }
-    default(v){this.set(v);}
-    decorator(v){this._decorator = v;}
+    default(v){
+        this.set(v);
+        return this;
+    }
+    decorator(v){
+        this._decorator = v;
+        return this;
+    }
     toJSON(){return this.v;}
     fromJSON(v){return v;}
 }

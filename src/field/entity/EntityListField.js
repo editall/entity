@@ -9,6 +9,6 @@ class EntityListField extends Field{
     typeValidation(v){return isArray(v) && v.every(item=>item instanceof this.cls);}
     fromJSON(v){return v.map(json=>(new this.cls).parse(json));}
 }
-const entityList = (entity, key, cls)=>entity.define(key, new EntityListField(cls));
+const entityList = cls=>new EntityListField(cls);
 
 export {entityList};

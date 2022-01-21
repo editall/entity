@@ -4,5 +4,5 @@ import {everyValue, isObject} from "../../util/util.js";
 class BooleanMapField extends Field{
     typeValidation(v){ return isObject(v) && everyValue(v, item=>typeof item == "boolean");}
 }
-const booleanMap = (entity, key)=>entity.define(key, new BooleanMapField);
+const booleanMap = _=>new BooleanMapField;
 export {booleanMap};

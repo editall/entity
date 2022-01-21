@@ -18,11 +18,8 @@ Model
 Simple value model using value series function.
 ```js
 class Member extends Entity{
-  constructor(){
-    super();
-    stringValue(this, "name");
-    numberValue(this, "age");
-  }
+  name = stringValue();
+  age = numberValue();
 }
 ```
 
@@ -50,11 +47,8 @@ console.log(member.age); //18
 using List, Map series Function
 ```js
 class Remember extends Entity{
-  constructor(){
-    super();
-    stringList(this, "friends");
-    numberMap(this, "lotto");
-  }
+  friends = stringList();
+  lotto = numberMap();
 }
 
 const remember = (new Remember).parse({
@@ -67,18 +61,12 @@ const remember = (new Remember).parse({
 using entity, entityList, entityMap
 ```js
 class Partner extends Entity{
-    constructor() {
-        super();
-        stringValue(this, "name");
-    }
+  name = stringValue();
 }
 class Member extends Entity{
-    constructor() {
-        super();
-        stringValue(this, "name");
-        numberValue(this, "age");
-        entityList(this, "partners", Partner);
-    }
+  name = stringValue();
+  age = numberValue();
+  partners = entityList(Partner);
 }
 const member = (new Member).parse({
     name:"hika",

@@ -6,6 +6,6 @@ class DateListField extends Field{
     toJSON(){return this.v.map(item=>item.toISOString());}
     fromJSON(v){return v.map(item=>new Date(item));}
 }
-const dateList = (entity, key)=>entity.define(key, new DateListField);
+const dateList = _=>new DateListField;
 
 export {dateList};

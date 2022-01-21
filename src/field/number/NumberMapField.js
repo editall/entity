@@ -5,6 +5,6 @@ class NumberMapField extends Field{
     typeValidation(v){return isObject(v) && everyValue(v, item=>typeof item == 'number');}
 }
 
-const numberMap = (entity, key)=>entity.define(key, new NumberMapField);
+const numberMap = _=>new NumberMapField;
 
 export {numberMap};

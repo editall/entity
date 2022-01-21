@@ -9,6 +9,6 @@ class EnumMapField extends Field{
     typeValidation(v){return isObject(v) && everyValue(v, item=>this.enum.isValid(item));}
 }
 
-const enumMap = (entity, key, targetEnum)=>entity.define(key, new EnumMapField(targetEnum));
+const enumMap = targetEnum=>new EnumMapField(targetEnum);
 
 export {enumMap};

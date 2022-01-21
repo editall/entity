@@ -8,6 +8,6 @@ class EntityField extends Field{
     typeValidation(v){return v instanceof this.cls;}
     fromJSON(v){return (new this.cls).parse(v);}
 }
-const entityValue = (entity, key, cls)=>entity.define(key, new EntityField(cls));
+const entityValue = cls=>new EntityField(cls);
 
 export {entityValue};
