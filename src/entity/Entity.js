@@ -1,15 +1,15 @@
-import {setProp, mapValue} from "../util/util.js";
+import {setProp} from "../util/util.js";
 import {Field} from "../field/Field.js";
 
 const handler = {
     get(target, prop){
-        if(prop[0] === "#") return Reflect.get(target, prop.substr(1));
-        const field = Reflect.get(target, prop);
+        if(prop[0] === "#") return target[prop.substr(1)];
+        const field = target[prop];
         return field instanceof Field ? field.get() : field;
     },
     set(target, prop, value){
-        const field = Reflect.get(target, prop);
-        field instanceof Field ? field.set(value) : Reflect.set(target, prop, value);
+        const field = target[prop];
+        field instanceof Field ? field.set(value) : (target[prop] = value);
         return true;
     }
 };
