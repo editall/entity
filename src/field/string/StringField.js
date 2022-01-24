@@ -1,7 +1,7 @@
 import {Field} from "../Field.js";
 
 class StringField extends Field{
-    typeValidation(v){ return typeof v != "string";}
+    typeValidation(v){ return typeof v == "string";}
     toJSON(){
         return this.v
             .replaceAll("\"", "\\\"")
