@@ -195,7 +195,13 @@ class Frontend extends Developer{
 }
 ```
 
-#### 4 Parsing through static method of abstract class.
+#### 4 Declare Union.
+```js
+Entity.union(Developer, Backend, Frontend)
+```
+* The first parameter becomes an abstract type, followed by concrete classes. According to the order of concrete classes, it is judged first when parsing.
+
+#### 5 Parsing through static method of abstract class.
 ```js
 const dev1 = Developer.parse({
   "name":"hika",
