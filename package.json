@@ -1,58 +1,33 @@
 {
-  "name": "@entityjs/entityjs",
-  "version": "0.0.6",
-  "description": "entity framework for pure javascript",
-  "type": "module",
-  "main": "./src/index.js",
-  "module": "./dist/entityjs.es.js",
-  "directories": {
-    ".": "./src"
-  },
-  "files": [
-    "samples",
-    "src",
-    "dist"
+  "name": "entity",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
   ],
-  "exports": {
-    ".": {
-      "import": "./src/index.js",
-      "require": "./dist/entityjs.umd.js"
-    }
-  },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build --config vite.dist.config.js",
-    "preview": "vite preview",
-    "test": "vitest",
-    "release": "release-it"
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "entity:dev": "turbo run entity:dev --parallel",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "postversion": "git push && git push --tags",
+    "release": "changeset publish"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/entityjs/entityJS.git"
-  },
-  "keywords": [
-    "entity",
-    "framework",
-    "orm"
-  ],
-  "author": "entityjs",
-  "license": "MIT",
-  "contributors": [
-    {
-      "name": "hikaMaeng"
-    },
-    {
-      "name": "easylogic",
-      "email": "cyberuls@gmail.com"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/entityjs/entityJS/issues"
-  },
-  "homepage": "https://github.com/entityjs/entityJS#readme",
   "devDependencies": {
-    "release-it": "^14.11.8",
-    "vite": "^2.7.10",
-    "vitest": "0.0.134"
-  }
+    "changeset": "^0.2.6",
+    "eslint-config-custom": "*",
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.25.0"
+  },
+  "packageManager": "npm@8.19.2"
 }

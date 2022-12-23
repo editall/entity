@@ -1,0 +1,55 @@
+{
+  "name": "entity",
+  "version": "0.1.0",
+  "description": "entity framework for data modeling",
+  "type": "module",
+  "main": "src/index.ts",
+  "module": "./dist/entityjs.es.js",
+  "directories": {".": "./src"},
+  "files": ["src", "dist"],
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "require": "./dist/entityjs.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "entity:watch": "tsc && vite build --watch --config=vite.config.js",
+    "preview": "vite preview",
+    "test": "vitest",
+    "release": "release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/editall/entity.git"
+  },
+  "keywords": [
+    "entity",
+    "data modeling",
+    "orm"
+  ],
+  "author": "editall",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "hikaMaeng",
+      "email": "hika00@gmail.com"
+    },
+    {
+      "name": "easylogic",
+      "email": "cyberuls@gmail.com"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/editall/entity/issues"
+  },
+  "homepage": "https://github.com/editall/entity#readme",
+  "devDependencies": {
+    "release-it": "^15.5.1",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.0",
+    "vitest": "0.25.7"
+  }
+}
