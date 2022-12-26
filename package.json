@@ -21,7 +21,8 @@
     "changeset": "^0.2.6",
     "eslint-config-custom": "*",
     "prettier": "latest",
-    "turbo": "latest"
+    "turbo": "latest",
+    "vite-plugin-dts": "^1.7.1"
   },
   "engines": {
     "node": ">=14.0.0"

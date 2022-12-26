@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import path from "path";
-
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   css: {
@@ -18,7 +18,8 @@ export default defineConfig({
     },
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "entity",
-    }
+      name: "entity"
+    },
+    plugins: [dts()]
   }
 });

@@ -1,5 +1,5 @@
 {
-  "name": "entityjs-sample",
+  "name": "entity-sample",
   "version": "0.0.1",
   "description": "entity framework for pure javascript",
   "type": "module",
