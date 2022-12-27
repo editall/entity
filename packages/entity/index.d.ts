@@ -1,9 +1,6 @@
 interface Validator<T>{
     (v: T):boolean
 }
-interface TypeCheck{
-    (validator: Validator<any> | undefined, meta: OptionMeta<any>, json: any):string|void|undefined
-}
 interface OptionMeta<T>{
     type:FieldType,
     factory:Factory<T>|{new(...arg:any):T},
@@ -26,6 +23,8 @@ export class FieldType{
     static objectArray:FieldType;
     static valueMap:FieldType;
     static objectMap:FieldType;
+    readonly fromJSON:FromJSON;
+    readonly name:string
 }
 
 

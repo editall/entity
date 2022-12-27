@@ -1,7 +1,7 @@
 {
   "name": "entity-sample",
   "version": "0.0.1",
-  "description": "entity framework for pure javascript",
+  "description": "Static typed data modeling framework for typescript with no other dependencies",
   "type": "module",
   "main": "./src/index.js",
   "module": "./dist/entityjs.es.js",
@@ -32,7 +32,8 @@
   "keywords": [
     "entity",
     "framework",
-    "orm"
+    "orm",
+    "data modeling"
   ],
   "author": "entityjs",
   "license": "MIT",

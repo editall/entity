@@ -1,253 +1,264 @@
-const p = /* @__PURE__ */ new WeakMap(), b = (h, e) => {
-  if (p.has(h) || p.set(h, /* @__PURE__ */ new WeakSet()), p.get(h)?.has(e) == !0)
+const v = /* @__PURE__ */ new WeakMap(), b = (h, t) => {
+  if (v.has(h) || v.set(h, /* @__PURE__ */ new WeakSet()), v.get(h)?.has(t) == !0)
     return !0;
-  const n = e.prototype;
-  let t = h.prototype, u = 100;
+  const n = t.prototype;
+  let e = h.prototype, u = 100;
   do {
-    if (t === n)
-      return p.get(h)?.add(e), !0;
-    t = Object.getPrototypeOf(t);
-  } while (t && u--);
+    if (e === n)
+      return v.get(h)?.add(t), !0;
+    e = Object.getPrototypeOf(e);
+  } while (e && u--);
   return !1;
-}, k = (h, e, n, t, u, i) => {
-  if (typeof u != typeof t) {
-    i.push(`invalid value type. json:${u}[${typeof u}], type:[${typeof t}]`);
+}, g = (h, t, n, e, u) => {
+  if (typeof e != typeof n) {
+    u.push(`invalid value type. json:${e}[${typeof e}], type:[${typeof n}]`);
     return;
   }
-  if (e && !e(u)) {
-    i.push(`validation error. json:${u}`);
+  if (t && !t(e)) {
+    u.push(`validation error. json:${e}`);
     return;
   }
-  return h ? h(u) : u;
-}, g = (h, e, n, t, u) => {
-  let i = n.factory, r;
-  if (b(i, v)) {
-    if (v.subTypes(i, (a) => (r = y.parse(a, t), !r)), r)
-      return r;
-    u.push(`no matched union. json:${t}`);
+  return h ? h(e) : e;
+}, m = (h, t, n, e, u) => {
+  if (t && !t(e)) {
+    u.push(`validation error. json:${e}`);
     return;
-  } else if (b(i, y))
-    r = y.parse(n.factory, t, (a) => u.push(...a));
-  else if (r = new n.factory(), h)
-    r = h(r);
-  else if (r.fromJSON)
-    r.fromJSON(t);
+  }
+  let r;
+  if (h)
+    r = h(e);
   else {
-    const a = Object.keys(t);
-    for (let s = 0, l = a.length; s < l; s++) {
-      const o = a[s];
-      r[o] = t[o];
+    let i = n.factory;
+    if (b(i, $)) {
+      if ($.subTypes(i, (a) => (r = p.parse(a, e), !r)), r)
+        return r;
+      u.push(`no matched union. json:${e}`);
+      return;
+    } else if (b(i, p))
+      r = p.parse(i, e, (a) => u.push(...a));
+    else if (r = new i(), r.fromJSON)
+      r.fromJSON(e);
+    else {
+      const a = Object.keys(e);
+      for (let s = 0, l = a.length; s < l; s++) {
+        const o = a[s];
+        r[o] = e[o];
+      }
     }
-  }
-  if (e && !e(t)) {
-    u.push(`validation error. json:${t}`);
-    return;
   }
   return r;
 };
 class f {
-  static value = new f("value", (e, n, t, u, i, r) => {
-    const a = k(e, n, t, t.instance, i, r);
-    if (r.length) {
-      r.push(`${r.pop()}, key:${u}`);
+  static value = new f("value", (t, n, e, u, r, i) => {
+    const a = g(t, n, e.instance, r, i);
+    if (i.length) {
+      i.push(`${i.pop()}, key:${u}`);
       return;
     }
     return a;
   });
-  static object = new f("object", (e, n, t, u, i, r) => {
-    const a = g(e, n, t, i, r);
-    if (r.length) {
-      r.push(`${r.pop()}, key:${u}`);
+  static object = new f("object", (t, n, e, u, r, i) => {
+    const a = m(t, n, e, r, i);
+    if (i.length) {
+      i.push(`${i.pop()}, key:${u}`);
       return;
     }
     return a;
   });
-  static valueArray = new f("valueArray", (e, n, t, u, i, r) => {
-    if (!(i instanceof Array)) {
-      r.push(`invalid array. json: ${i}`);
+  static valueArray = new f("valueArray", (t, n, e, u, r, i) => {
+    if (!(r instanceof Array)) {
+      i.push(`invalid array. json: ${r}`);
       return;
     }
-    t.instance === void 0 && (t.instance = t.factory());
+    e.instance === void 0 && (e.instance = e.factory());
     const a = [];
-    for (let s = 0, l = i.length; s < l; s++)
-      if (a.push(k(e, n, t, t.instance, i[s], r)), r.length) {
-        r.push(`invalid array item type. item: ${i[s]}, index:${s}, error:${r.pop()}, key:${u}`);
+    for (let s = 0, l = r.length; s < l; s++) {
+      const o = g(t, n, e.instance, r[s], i);
+      if (i.length) {
+        i.push(`invalid array item type. item: ${r[s]}, index:${s}, error:${i.pop()}, key:${u}`);
         return;
       }
+      a.push(o);
+    }
     return a;
   });
-  static objectArray = new f("objectArray", (e, n, t, u, i, r) => {
-    if (!(i instanceof Array)) {
-      r.push(`invalid array. json: ${i}`);
+  static objectArray = new f("objectArray", (t, n, e, u, r, i) => {
+    if (!(r instanceof Array)) {
+      i.push(`invalid array. json: ${r}`);
       return;
     }
     const a = [];
-    for (let s = 0, l = i.length; s < l; s++)
-      if (a.push(g(e, n, t, i[s], r)), r.length) {
-        r.push(`invalid array item type. item: ${i[s]}, index:${s}, error:${r.pop()}, key:${u}`);
+    for (let s = 0, l = r.length; s < l; s++) {
+      const o = m(t, n, e, r[s], i);
+      if (i.length) {
+        i.push(`invalid array item type. item: ${r[s]}, index:${s}, error:${i.pop()}, key:${u}`);
         return;
       }
+      a.push(o);
+    }
     return a;
   });
-  static valueMap = new f("valueMap", (e, n, t, u, i, r) => {
-    if (!i || typeof i != "object") {
-      r.push(`invalid object. json: ${i}`);
+  static valueMap = new f("valueMap", (t, n, e, u, r, i) => {
+    if (!r || typeof r != "object") {
+      i.push(`invalid object. json: ${r}`);
       return;
     }
-    const a = Object.keys(i), s = {};
-    t.instance === void 0 && (t.instance = t.factory());
+    const a = Object.keys(r), s = {};
+    e.instance === void 0 && (e.instance = e.factory());
     for (let l = 0, o = a.length; l < o; l++) {
-      const c = a[l];
-      if (s[c] = k(e, n, t, t.instance, i[c], r), r.length) {
-        r.push(`invalid object item type. item: ${i[c]}, objectkey:${c}, error:${r.pop()}, key:${c}`);
+      const c = a[l], y = g(t, n, e.instance, r[c], i);
+      if (i.length) {
+        i.push(`invalid object item type. item: ${r[c]}, objectkey:${c}, error:${i.pop()}, key:${c}`);
         return;
       }
+      s[c] = y;
     }
     return s;
   });
-  static objectMap = new f("objectMap", (e, n, t, u, i, r) => {
-    if (!i || typeof i != "object") {
-      r.push(`invalid object. json: ${i}`);
+  static objectMap = new f("objectMap", (t, n, e, u, r, i) => {
+    if (!r || typeof r != "object") {
+      i.push(`invalid object. json: ${r}`);
       return;
     }
-    const a = Object.keys(i), s = {};
+    const a = Object.keys(r), s = {};
     for (let l = 0, o = a.length; l < o; l++) {
-      const c = a[l];
-      if (s[c] = g(e, n, t, i[c], r), r.length) {
-        r.push(`invalid object item type. item: ${i[c]}, objectkey:${c}, error:${r.pop()}, key:${c}`);
+      const c = a[l], y = m(t, n, e, r[c], i);
+      if (i.length) {
+        i.push(`invalid object item type. item: ${r[c]}, objectkey:${c}, error:${i.pop()}, key:${c}`);
         return;
       }
+      s[c] = y;
     }
     return s;
   });
   fromJSON;
   name;
-  constructor(e, n) {
-    this.name = e, this.fromJSON = n;
+  constructor(t, n) {
+    this.name = t, this.fromJSON = n;
   }
 }
 const d = /* @__PURE__ */ new WeakMap();
-class y {
-  static parse(e, n, t, u) {
-    if (typeof n == "string" && (n = JSON.parse(n)), !u && b(e, v)) {
+class p {
+  static parse(t, n, e, u) {
+    if (typeof n == "string" && (n = JSON.parse(n)), !u && b(t, $)) {
       let l = [], o;
-      return v.subTypes(e, (c) => (l.push(c.name), o = y.parse(c, n, void 0, !0), !o)), o || (t && t([`no matched union. union:${e.name}, subType:${l.join(",")}`]), null);
+      return $.subTypes(t, (c) => (l.push(c.name), o = p.parse(c, n, void 0, !0), !o)), o || (e && e([`no matched union. union:${t.name}, subType:${l.join(",")}`]), null);
     }
-    const i = new e(), [r, a] = i.fields, s = [];
-    for (let l = 0, o = r.length; l < o; l++) {
-      const c = r[l];
+    const r = new t(), [i, a] = r.fields, s = [];
+    for (let l = 0, o = i.length; l < o; l++) {
+      const c = i[l];
       if (typeof c == "symbol")
         continue;
-      const m = n[c], { validator: O, optional: S, fromJSON: w, __meta__: $ } = a[c];
-      if (m === void 0) {
+      const y = n[c], { validator: O, optional: S, fromJSON: w, __meta__: k } = a[c];
+      if (y === void 0) {
         if (S)
           continue;
         s.push(`no key. key:${String(c)}`);
         break;
       }
-      if (!$) {
+      if (!k) {
         s.push(`no meta data. key: ${String(c)}`);
         break;
       }
-      const _ = $.type.fromJSON(w, O, $, c, m, s);
+      const _ = k.type.fromJSON(w, O, k, c, y, s);
       if (_ === void 0)
         break;
-      i[c] = _;
+      r[c] = _;
     }
-    return s.length ? (t && t(s), null) : i;
+    return s.length ? (e && e(s), null) : r;
   }
   #e = [];
   get fields() {
     if (!d.has(this.constructor)) {
-      const e = Reflect.ownKeys(this);
+      const t = Object.getOwnPropertyNames(this);
       d.set(
         this.constructor,
         [
-          e,
-          e.reduce((n, t, u) => (n[t] = this.#e[u], n), {})
+          t,
+          t.reduce((n, e, u) => (n[e] = this.#e[u], n), {})
         ]
       );
     }
     return d.get(this.constructor);
   }
   toJSON() {
-    const [e, n] = this.fields;
-    return e.reduce((t, u) => {
-      const i = this[u];
-      return t[u] = n[u].toJSON?.(i) ?? i, t;
+    const [t, n] = this.fields;
+    return t.reduce((e, u) => {
+      const r = this[u];
+      return e[u] = n[u].toJSON?.(r) ?? r, e;
     }, {});
   }
-  value(e, n = {}) {
-    const t = e();
-    if (typeof t == "object")
-      throw `${t} is no value`;
+  value(t, n = {}) {
+    const e = t();
+    if (typeof e == "object")
+      throw `${e} is no value`;
     return n.__meta__ = {
       type: f.value,
-      factory: e,
-      instance: t
-    }, this.#e.push(n), t;
+      factory: t,
+      instance: e
+    }, this.#e.push(n), e;
   }
-  object(e, n = {}) {
+  object(t, n = {}) {
     return n.__meta__ = {
       type: f.object,
-      factory: e
+      factory: t
     }, this.#e.push(n), {};
   }
-  valueArray(e, n = {}) {
+  valueArray(t, n = {}) {
     return n.__meta__ = {
       type: f.valueArray,
-      factory: e
+      factory: t
     }, this.#e.push(n), [];
   }
-  objectArray(e, n = {}) {
+  objectArray(t, n = {}) {
     return n.__meta__ = {
       type: f.objectArray,
-      factory: e
+      factory: t
     }, this.#e.push(n), {};
   }
-  valueMap(e, n = {}) {
+  valueMap(t, n = {}) {
     return n.__meta__ = {
       type: f.valueMap,
-      factory: e
+      factory: t
     }, this.#e.push(n), {};
   }
-  objectMap(e, n = {}) {
+  objectMap(t, n = {}) {
     return n.__meta__ = {
       type: f.objectMap,
-      factory: e
+      factory: t
     }, this.#e.push(n), {};
   }
   get STRING() {
     return this.value(String);
   }
-  string(e) {
-    return this.value(String, e);
+  string(t) {
+    return this.value(String, t);
   }
   get BOOL() {
     return this.value(Boolean);
   }
-  bool(e) {
-    return this.value(Boolean, e);
+  bool(t) {
+    return this.value(Boolean, t);
   }
   get NUMBER() {
     return this.value(Number);
   }
-  number(e) {
-    return this.value(Number, e);
+  number(t) {
+    return this.value(Number, t);
   }
 }
-class v extends y {
-  static subTypes(e, n) {
-    const t = Object.values(e);
-    for (let u = 0, i = t.length; u < i; u++) {
-      const r = t[u];
-      if (r && typeof r == "function" && b(r, e) && !n(r))
+class $ extends p {
+  static subTypes(t, n) {
+    const e = Object.values(t);
+    for (let u = 0, r = e.length; u < r; u++) {
+      const i = e[u];
+      if (i && typeof i == "function" && b(i, t) && !n(i))
         break;
     }
   }
 }
 export {
-  y as Entity,
+  p as Entity,
   f as FieldType,
-  v as Union
+  $ as Union
 };

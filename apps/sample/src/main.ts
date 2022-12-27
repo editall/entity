@@ -55,6 +55,26 @@ const e = Entity.parse(Base, {
     bnum:1111
 });
 console.log(e, e instanceof Base.B, JSON.stringify(e));
-const is = ()=>{
 
+console.log("=============================")
+const json = {
+    name:"hika",
+    num:1234,
+    list:["a", "b", "c"],
+    map:{a:{title:"a", id:12}, b:{title:"b", id:15}}
+};
+
+class Test11_Sub extends Entity{
+    title = this.STRING;
+    id = this.NUMBER;
 }
+class Test11 extends Entity{
+    name = this.STRING;
+    num = this.number({
+        validator:v=>50 < v
+    });
+    list = this.valueArray(String);
+    map = this.objectMap(Test11_Sub)
+}
+const test11 = Entity.parse(Test11, json);
+console.log(test11);

@@ -4,9 +4,6 @@ import {isSubClass} from "./IsSubClass";
 interface Validator<T>{
     (v: T):boolean
 }
-interface TypeCheck{
-    (validator: Validator<any> | undefined, meta: OptionMeta<any>, json: any):string|void|undefined
-}
 interface OptionMeta<T>{
     type:FieldType,
     factory:Factory<T>|{new(...arg:any):T},
@@ -22,7 +19,7 @@ export interface Option<T> {
 interface FromJSON{
     (fromjson:((v:any)=>any)|undefined, validator:Validator<any>|undefined, meta:OptionMeta<any>, key:string, json:any, report:any[]):any|undefined
 }
-const value = (fromjson:((v:any)=>any)|undefined, validator:Validator<any>|undefined, meta:OptionMeta<any>, origin:any, json:any, report:any[]) =>{
+const value = (fromjson:((v:any)=>any)|undefined, validator:Validator<any>|undefined, origin:any, json:any, report:any[]) =>{
     if(typeof json !== typeof origin){
         report.push(`invalid value type. json:${json}[${typeof json}], type:[${typeof origin}]`);
         return;
@@ -34,45 +31,45 @@ const value = (fromjson:((v:any)=>any)|undefined, validator:Validator<any>|undef
     return fromjson ? fromjson(json) : json;
 };
 const object = (fromjson:((v:any)=>any)|undefined, validator:Validator<any>|undefined, meta:OptionMeta<any>, json:any, report:any[]) =>{
-    let type = meta.factory as {new ():any};
+    if(validator && !validator(json)){
+        report.push(`validation error. json:${json}`);
+        return;
+    }
     let result:any;
-    if(isSubClass(type, Union)){
-        Union.subTypes(type, t=>{
-            result = Entity.parse(t, json);
-            return !result;
-        });
-        if(result) return result;
-        else{
-            report.push(`no matched union. json:${json}`);
-            return;
-        }
-    }else{
-        if(isSubClass(type, Entity)){
+    if(fromjson) result = fromjson(json);
+    else {
+        let type = meta.factory as { new(): any };
+        if (isSubClass(type, Union)) {
+            Union.subTypes(type, t => {
+                result = Entity.parse(t, json);
+                return !result;
+            });
+            if (result) return result;
+            else {
+                report.push(`no matched union. json:${json}`);
+                return;
+            }
+        } else if (isSubClass(type, Entity)) {
             // @ts-ignore
-            result = Entity.parse(meta.factory, json, error=>report.push(...error));
-        }else{
+            result = Entity.parse(type, json, error => report.push(...error));
+        } else {
             // @ts-ignore
-            result = new meta.factory();
-            if(fromjson) result = fromjson(result);
-            else if(result.fromJSON) result.fromJSON(json);
-            else{
+            result = new type();
+            if (result.fromJSON) result.fromJSON(json);
+            else {
                 const keys = Object.keys(json);
-                for(let i = 0, j = keys.length; i < j; i++){
+                for (let i = 0, j = keys.length; i < j; i++) {
                     const key = keys[i];
                     result[key] = json[key];
                 }
             }
         }
     }
-    if(validator && !validator(json)){
-        report.push(`validation error. json:${json}`);
-        return;
-    }
     return result;
 }
 export class FieldType{
     static value = new FieldType("value", (from, validator, meta, key, json, report)=>{
-        const result = value(from, validator, meta, meta.instance, json, report);
+        const result = value(from, validator, meta.instance, json, report);
         if(report.length){
             report.push(`${report.pop()}, key:${key}`);
             return
@@ -96,11 +93,12 @@ export class FieldType{
         if(meta.instance === undefined) meta.instance = meta.factory();
         const result = [];
         for(let i = 0, j = json.length; i < j; i++){
-            result.push(value(from, validator, meta, meta.instance, json[i], report));
+            const v = value(from, validator, meta.instance, json[i], report);
             if(report.length){
                 report.push(`invalid array item type. item: ${json[i]}, index:${i}, error:${report.pop()}, key:${key}`);
                 return
             }
+            result.push(v);
         }
         return result;
     });
@@ -112,11 +110,12 @@ export class FieldType{
         // @ts-ignore
         const result = [];
         for(let i = 0, j = json.length; i < j; i++){
-            result.push(object(from, validator, meta, json[i], report));
+            const v = object(from, validator, meta, json[i], report);
             if(report.length){
                 report.push(`invalid array item type. item: ${json[i]}, index:${i}, error:${report.pop()}, key:${key}`);
                 return
             }
+            result.push(v);
         }
         return result;
     });
@@ -131,12 +130,13 @@ export class FieldType{
         if(meta.instance === undefined) meta.instance = meta.factory();
         for(let i = 0, j = keys.length; i < j; i++){
             const key = keys[i];
-            // @ts-ignore
-            result[key] = value(from, validator, meta, meta.instance, json[key], report);
+            const v = value(from, validator, meta.instance, json[key], report);
             if(report.length){
                 report.push(`invalid object item type. item: ${json[key]}, objectkey:${key}, error:${report.pop()}, key:${key}`);
                 return
             }
+            // @ts-ignore
+            result[key] = v;
         }
         return result;
     });
@@ -150,12 +150,13 @@ export class FieldType{
         // @ts-ignore
         for(let i = 0, j = keys.length; i < j; i++){
             const key = keys[i];
-            // @ts-ignore
-            result[key] = object(from, validator, meta, json[key], report);
+            const v = object(from, validator, meta, json[key], report);
             if(report.length){
                 report.push(`invalid object item type. item: ${json[key]}, objectkey:${key}, error:${report.pop()}, key:${key}`);
                 return
             }
+            // @ts-ignore
+            result[key] = v;
         }
         return result;
     });

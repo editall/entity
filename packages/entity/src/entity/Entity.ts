@@ -9,7 +9,6 @@ export interface Factory<T>{
 }
 const reflected = new WeakMap();
 export class Entity{
-
     static parse<T extends Entity>(type:{new ():T}, json:object|string, report?:Report, noUnion?:boolean):T | null{
         if(typeof json === "string") json = JSON.parse(json);
         if(!noUnion && isSubClass(type, Union)){
@@ -28,7 +27,6 @@ export class Entity{
         }
         const entity = new type();
         const [keys, option] = entity.fields;
-        const entries = Object.entries(json);
         const error: any[] = [];
         for(let i = 0, j = keys.length; i < j; i++){
             const key = keys[i];
@@ -59,7 +57,7 @@ export class Entity{
     readonly #fields:Option<any>[] = [];
     get fields():[[string|symbol],{[key:string|symbol]:Option<any>}]{
         if(!reflected.has(this.constructor)){
-            const keys = Reflect.ownKeys(this);
+            const keys = Object.getOwnPropertyNames(this);
             reflected.set(
                 this.constructor,
                 [

@@ -1,6 +1,5 @@
 import {Entity} from "entity";
 
-let result;
 let HTML = "";
 const OK = ` <span class="ok">ok</span>`;
 const FAIL = ` <span class="fail">fail</span>`;
@@ -16,7 +15,7 @@ function isEntitySame(origin:Entity, json:any, html:{html:string}, depth:number)
     const [, fields] = origin.fields;
     let isOk = true;
     let temp = ``;
-    Reflect.ownKeys(origin).forEach(key => {
+    Object.getOwnPropertyNames(origin).forEach(key => {
         // @ts-ignore
         const v = origin[key];
         const jsonValue = json[key];
@@ -47,9 +46,8 @@ function isSame(origin: any, json: any, html: { html: string }, depth: number):b
     if(origin && typeof origin === "object"){
         if(origin instanceof Array) return origin.every((item, index)=>isSame(item, json[index], html, depth));
         else if(origin instanceof Entity) return isEntitySame(origin, json, html, depth + 1);
-        else return Reflect.ownKeys(origin).every(key=>isSame(origin[key], json[key], html, depth));
+        else return Object.getOwnPropertyNames(origin).every(key=>isSame(origin[key], json[key], html, depth));
     }else return origin === json;
-    return false;
 }
 
 export function render(){
