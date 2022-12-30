@@ -1,41 +1,29 @@
 {
   "name": "entity-sample",
   "version": "0.0.1",
-  "description": "Static typed data modeling framework for typescript with no other dependencies",
-  "type": "module",
+  "description": "entity sample",
   "main": "./src/index.js",
-  "module": "./dist/entityjs.es.js",
   "directories": {
     ".": "./src"
   },
   "files": [
-    "src",
-    "dist"
+    "src"
   ],
-  "exports": {
-    ".": {
-      "import": "./src/index.js",
-      "require": "./dist/entityjs.umd.js"
-    }
-  },
   "scripts": {
     "entity:dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "build": "vite build --config=vite.config.js",
+    "preview": "npm build && vite preview",
     "test": "vitest",
     "release": "release-it"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/entityjs/entityJS.git"
+    "url": "git+https://github.com/editall/entity.git"
   },
   "keywords": [
-    "entity",
-    "framework",
-    "orm",
-    "data modeling"
+    "entity"
   ],
-  "author": "entityjs",
+  "author": "editall",
   "license": "MIT",
   "contributors": [
     {
@@ -48,9 +36,9 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/entityjs/entityJS/issues"
+    "url": "https://github.com/editall/entity/issues"
   },
-  "homepage": "https://github.com/entityjs/entityJS#readme",
+  "homepage": "https://github.com/editall/entity#readme",
   "devDependencies": {
     "release-it": "^15.5.1",
     "typescript": "^4.9.4",
