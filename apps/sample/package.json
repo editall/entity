@@ -3,12 +3,6 @@
   "version": "0.0.1",
   "description": "entity sample",
   "main": "./src/index.js",
-  "directories": {
-    ".": "./src"
-  },
-  "files": [
-    "src"
-  ],
   "scripts": {
     "entity:dev": "vite",
     "build": "vite build --config=vite.config.js",
