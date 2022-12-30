@@ -6,7 +6,7 @@
   "scripts": {
     "entity:dev": "vite",
     "build": "vite build --config=vite.config.js",
-    "preview": "npm build && vite preview",
+    "preview": "npm run build && vite preview",
     "test": "vitest",
     "release": "release-it"
   },
