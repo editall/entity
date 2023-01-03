@@ -18,8 +18,15 @@
       "outputs": ["dist/**", ".next/**"],
       "cache": false
     },        
+    "type:watch": {
+      "dependsOn": [
+        "^type:watch"
+      ],
+      "outputs": ["dist/**", ".next/**"],
+      "cache": false
+    },            
     "entity:dev": {
-      "dependsOn": ["entity:watch"]
+      "dependsOn": ["entity:watch", "type:watch"]
     }
   }
 }
