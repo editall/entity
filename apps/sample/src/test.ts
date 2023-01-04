@@ -1,4 +1,4 @@
-import {Entity} from "entity";
+import {Entity} from "@edit-all/entity";
 
 let HTML = "";
 const OK = ` <span class="ok">ok</span>`;

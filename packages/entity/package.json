@@ -1,14 +1,13 @@
 {
-  "name": "entity",
+  "name": "@edit-all/entity",
   "version": "0.1.0",
   "description": "Static typed data modeling framework for typescript with no other dependencies",
+  "publishConfig": {"access": "public"},
   "type": "module",
   "types": "./dist/types/index.d.ts",
   "module": "./dist/entity.js",
   "main": "./dist/entity.umd.cjs",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "exports": {
     ".": {
       "import": "./dist/entity.js",

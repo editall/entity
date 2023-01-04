@@ -1,5 +1,5 @@
 import { Option } from "./Option";
-export interface Report {
+interface Report {
     (error: any[]): void;
 }
 export interface Factory<T> {
@@ -46,3 +46,4 @@ export declare class Union extends Entity {
         new (): Entity;
     }) => boolean): void;
 }
+export {};

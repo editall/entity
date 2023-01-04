@@ -1,4 +1,4 @@
-import {Entity, Union} from "entity";
+import {Entity, Union} from "@edit-all/entity";
 import {render, test} from "./test";
 
 class Case1 extends Entity{

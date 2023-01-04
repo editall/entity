@@ -259,6 +259,5 @@ class $ extends p {
 }
 export {
   p as Entity,
-  f as FieldType,
   $ as Union
 };

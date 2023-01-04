@@ -1,7 +1,7 @@
 import {FieldType, Option} from "./Option";
 import {isSubClass} from "./IsSubClass";
 
-export interface Report{
+interface Report{
     (error:any[]):void
 }
 export interface Factory<T>{

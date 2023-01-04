@@ -1,2 +1,1 @@
-export * from "./entity/Entity"
-export * from "./entity/Option"
+export {Entity, Union} from "./entity/Entity"
